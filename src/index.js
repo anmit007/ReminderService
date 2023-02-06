@@ -20,9 +20,9 @@ const setupAndStartServer = async () => {
         //     'good to have you onboard'
 
         // );
-        cron.schedule('*/2 * * * *', () => {
-            console.log('running 2 minute ');
-          });
+        // cron.schedule('*/2 * * * *', () => {
+        //     console.log('running 2 minute ');
+        //   });
     });
 }
 
