@@ -11,23 +11,20 @@ const createChannel = async () => {
   }
 };
 const subscribeMessage = async (channel, service, binding_key) => {
-  const applicationQueue = await channel.assertQueue("QUEUE_NAME");
+  const applicationQueue = await channel.assertQueue('REMINDER_QUEUE');
   channel.bindQueue(applicationQueue.queue, EXCHANGE_NAME, binding_key);
   channel.consume(applicationQueue.queue, (msg) => {
     console.log("received data");
     console.log(msg.content.toString());
     const payload = JSON.parse(msg.content.toString());
-
     service(payload);
-
-    //  service(msg.content.toString());
     channel.ack(msg);
   });
 };
 
 const publishMessage = async (channel, binding_key, message) => {
   try {
-    await channel.assertQueue("QUEUE_NAME");
+    await channel.assertQueue('REMINDER_QUEUE');
     await channel.publish(EXCHANGE_NAME, binding_key, Buffer.from(message));
   } catch (error) {
     throw error;
